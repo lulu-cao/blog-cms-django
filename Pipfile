@@ -1,0 +1,31 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[requires]
+python_version = "3.11"
+
+[packages]
+"psycopg2-binary" = "*"
+django-heroku = "*"
+gunicorn = "*"
+autopep8 = "*"
+pylint = "*"
+django = "*"
+typing-extensions = "*"
+djangorestframework = "*"
+django-cors-headers = "*"
+django-s3-storage = "*"
+django-s3direct = "*"
+django-imagekit = "*"
+pillow = "*"
+django-model-utils = "*"
+django-ordered-model = "*"
+django-ckeditor = "*"
+django-import-export = "*"
+django-filter = "*"
+tzdata = "*"
+django-admin-sortable2 = "*"
+
+[dev-packages]
