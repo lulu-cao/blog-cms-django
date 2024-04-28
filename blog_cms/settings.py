@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'whitenoise.runserver_nostatic',
+    'rest_framework',
     'blog',
 ]
 
@@ -83,7 +85,7 @@ DATABASES = {
     }
 }
 
-ALLOWED_HOSTS = ['blog-cms-django-abaff6e17c2a.herokuapp.com']
+ALLOWED_HOSTS = ['blog-cms-django-abaff6e17c2a.herokuapp.com', 'localhost', ]
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -118,6 +120,10 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = 'static/'
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
