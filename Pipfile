@@ -27,5 +27,6 @@ django-import-export = "*"
 django-filter = "*"
 tzdata = "*"
 django-admin-sortable2 = "*"
+python-dotenv = "*"
 
 [dev-packages]

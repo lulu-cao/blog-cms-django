@@ -20,5 +20,6 @@ from blog import urls as blog_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path(r's3direct/', include('s3direct.urls')),
     path('api/', include(blog_urls.router.urls)),
 ]

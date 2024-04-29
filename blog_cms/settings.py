@@ -12,9 +12,12 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -27,9 +30,6 @@ SECRET_KEY = 'django-insecure-0ijt&h!$0i@hqv72msu83#j7b0bu!&juumv-o0yan@!u*7^-ge
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,14 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'whitenoise.runserver_nostatic',
+    'django.contrib.staticfiles',
     'rest_framework',
+    'django_s3_storage',
+    's3direct',
     'blog',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -81,7 +84,7 @@ WSGI_APPLICATION = 'blog_cms.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -120,9 +123,12 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
+
+# Extra places for collectstatic to find static files.
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'images'),  # Path to where your static files are located in development
+    os.path.join(PROJECT_ROOT, 'static'),
 ]
+
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -131,3 +137,34 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# S3 Direct
+DEFAULT_FILE_STORAGE = 'django_s3_storage.storage.S3Storage'
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME')
+AWS_REGION = os.getenv('AWS_REGION')
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_S3_BUCKET_NAME = os.getenv('AWS_S3_BUCKET_NAME')
+AWS_S3_BUCKET_AUTH = os.getenv('AWS_S3_BUCKET_AUTH')
+AWS_S3_ADDRESSING_STYLE = os.getenv('AWS_S3_ADDRESSING_STYLE')
+AWS_STORAGE_BUCKET_NAME = AWS_S3_BUCKET_NAME
+S3DIRECT_REGION = AWS_REGION
+AWS_S3_REGION_NAME = AWS_REGION
+AWS_S3_ENDPOINT_URL = os.getenv('AWS_S3_ENDPOINT_URL')
+
+def create_filename(filename, args):
+    ext = filename.split('.')[-1]
+    name = filename.split('.')[0]
+    filename = '%s-%s.%s' % (slugify(name), uuid.uuid4().hex[:8], ext)
+    return os.path.join(args, filename)
+
+S3DIRECT_DESTINATIONS = {
+    'blog-images': {
+        'key': lambda filename: create_filename(filename, 'blog/images'),
+        'content_disposition': 'inline',
+        'allowed': ['image/png', 'image/jpeg'],
+    },
+}
