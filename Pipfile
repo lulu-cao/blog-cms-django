@@ -28,5 +28,7 @@ django-filter = "*"
 tzdata = "*"
 django-admin-sortable2 = "*"
 python-dotenv = "*"
+feedparser = "*"
+celery = "*"
 
 [dev-packages]
