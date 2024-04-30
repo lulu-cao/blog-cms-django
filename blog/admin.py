@@ -4,3 +4,7 @@ from . import models
 @admin.register(models.Blog)
 class BlogAdmin(admin.ModelAdmin):
   pass
+
+@admin.register(models.FeaturedArticle)
+class FeaturedArticleAdmin(admin.ModelAdmin):
+  pass
