@@ -12,3 +12,7 @@ class BlogViewSet(viewsets.ModelViewSet):
 class FeaturedArticleViewSet(viewsets.ModelViewSet):
     queryset = models.FeaturedArticle.objects.all()
     serializer_class = serializers.FeaturedArticleSerializer
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = models.User.objects.all()
+    serializer_class = serializers.UserSerializer

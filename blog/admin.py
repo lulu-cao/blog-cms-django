@@ -16,3 +16,7 @@ class BlogAdmin(admin.ModelAdmin):
 @admin.register(models.FeaturedArticle)
 class FeaturedArticleAdmin(admin.ModelAdmin):
   pass
+
+@admin.register(models.User)
+class UserAdmin(admin.ModelAdmin):
+  pass

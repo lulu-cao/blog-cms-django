@@ -1,5 +1,11 @@
 from django.db import models
 
+class User(models.Model):
+    uid = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.uid
+
 class Blog(models.Model):
     title = models.CharField(max_length=255)
     pub_date = models.DateTimeField()
@@ -30,7 +36,7 @@ class FeaturedArticle(models.Model):
 
 class RssFeed(models.Model):
     url = models.URLField()
-    uid = models.CharField(max_length=200)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='rss_feeds')
 
     def __str__(self):
         return self.uid
