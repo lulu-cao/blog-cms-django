@@ -39,7 +39,7 @@ class RssFeed(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='rss_feeds')
 
     def __str__(self):
-        return self.uid
+        return self.url
 
 class RssCache(models.Model):
     feed = models.ForeignKey(RssFeed, on_delete=models.CASCADE, related_name='rss_cache')
