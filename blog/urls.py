@@ -5,3 +5,4 @@ router = routers.DefaultRouter()
 
 router.register(r'blogs', views.BlogViewSet)
 router.register(r'featured-articles', views.FeaturedArticleViewSet)
+router.register(r'rss-feeds', views.RssFeedViewSet)

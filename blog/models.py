@@ -20,6 +20,27 @@ class FeaturedArticle(models.Model):
     summary = models.TextField()
     published = models.DateTimeField(blank=True, null=True)
     link = models.URLField()
+    order = models.PositiveSmallIntegerField(default=0)
+
+    def __str__(self):
+        return self.title
+
+    def Meta():
+        ordering = ['order']
+
+class RssFeed(models.Model):
+    url = models.URLField()
+    uid = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.uid
+
+class RssCache(models.Model):
+    feed = models.ForeignKey(RssFeed, on_delete=models.CASCADE, related_name='rss_cache')
+    title = models.CharField(max_length=200)
+    summary = models.TextField()
+    published = models.DateTimeField(blank=True, null=True)
+    link = models.URLField()
 
     def __str__(self):
         return self.title
