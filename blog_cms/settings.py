@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    'django_filters',
     'rest_framework',
     'django_s3_storage',
     's3direct',
@@ -95,6 +96,17 @@ DATABASES['default'].update(dj_database_url.config(
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 ALLOWED_HOSTS = ['blog-cms-django-abaff6e17c2a.herokuapp.com', 'localhost', ]
+
+
+# Django Import Export
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
+IMPORT_EXPORT_SKIP_ADMIN_LOG = True
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
 
 
 # Password validation
