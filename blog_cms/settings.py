@@ -60,10 +60,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    'https://lulu-cao.github.io',
-    'http://localhost'
-]
+# CORS_ALLOWED_ORIGINS = [
+#     'https://lulu-cao.github.io',
+# ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'blog_cms.urls'
 
