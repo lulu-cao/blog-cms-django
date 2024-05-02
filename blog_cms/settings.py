@@ -44,10 +44,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_s3_storage',
     's3direct',
+    'corsheaders',
     'blog',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -56,6 +58,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'https://lulu-cao.github.io',
 ]
 
 ROOT_URLCONF = 'blog_cms.urls'
