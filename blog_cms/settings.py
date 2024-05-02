@@ -62,6 +62,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     'https://lulu-cao.github.io',
+    'http://localhost'
 ]
 
 ROOT_URLCONF = 'blog_cms.urls'
