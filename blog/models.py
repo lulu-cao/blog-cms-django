@@ -1,11 +1,5 @@
 from django.db import models
 
-class User(models.Model):
-    uid = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.uid
-
 class Blog(models.Model):
     title = models.CharField(max_length=255)
     pub_date = models.DateTimeField()
@@ -33,6 +27,12 @@ class FeaturedArticle(models.Model):
 
     def Meta():
         ordering = ['order']
+
+class User(models.Model):
+    uid = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.uid
 
 class RssFeed(models.Model):
     url = models.URLField()
