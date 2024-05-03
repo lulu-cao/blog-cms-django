@@ -46,7 +46,7 @@ def cache_rss_feed(request):
             return JsonResponse({'error': 'url and user required'}, status=400)
 
         if models.RssFeed.objects.filter(url=url, user_id=user_id).exists():
-            return JsonResponse({'error': 'Feed already cached for this user'}, status=409)
+            return JsonResponse({'error': 'You have added this feed url before. Please try another.'}, status=409)
 
         tasks.cacheUserFeeds(user_id, url)
         return JsonResponse({'status': 'success'}, status=201)
