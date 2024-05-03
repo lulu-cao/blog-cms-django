@@ -8,13 +8,15 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 def cacheFeaturedArticles():
     def cache(feed_url):
         feed = feedparser.parse(feed_url)
+        # for key in feed.entries[0].keys():
+        #     print(key)
         for entry in feed.entries:
             try:
                 if not models.FeaturedArticle.objects.filter(link=entry.link).exists():
                     article = models.FeaturedArticle(
                         title=entry.title,
-                        summary=entry.item.content,
-                        published=parse_datetime(entry.item.pubDate),
+                        summary=entry.summary,
+                        published=parse_datetime(entry.published),
                         link=entry.link
                     )
                     article.save()
@@ -26,7 +28,7 @@ def cacheFeaturedArticles():
 
 
     cache('https://medium.com/feed/@lcao_5526')
-    cache('https://www.goodreads.com/review/list_rss/134943772?shelf=read')
+    # cache('https://www.goodreads.com/review/list_rss/134943772?shelf=read') # entry.user_review for summary
 
 def cacheUserFeeds(user_id, feed_url):
     user = models.User.objects.get(pk=user_id)
@@ -39,6 +41,7 @@ def cacheUserFeeds(user_id, feed_url):
                 feed=feed, # This is the foreign key
                 title=entry.title,
                 summary=entry.summary,
+                image=entry.image,
                 published=parse_datetime(entry.published),
                 link=entry.link
             )

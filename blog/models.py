@@ -19,6 +19,7 @@ class FeaturedArticle(models.Model):
     title = models.CharField(max_length=200)
     summary = models.TextField()
     published = models.DateTimeField(blank=True, null=True)
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
     link = models.URLField()
     order = models.PositiveSmallIntegerField(default=0)
 
@@ -45,6 +46,7 @@ class RssCache(models.Model):
     feed = models.ForeignKey(RssFeed, on_delete=models.CASCADE, related_name='rss_cache')
     title = models.CharField(max_length=200)
     summary = models.TextField()
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
     published = models.DateTimeField(blank=True, null=True)
     link = models.URLField()
 
