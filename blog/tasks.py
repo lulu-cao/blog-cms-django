@@ -41,7 +41,7 @@ def cacheUserFeeds(user_id, feed_url):
                 feed=feed, # This is the foreign key
                 title=entry.title,
                 summary=entry.summary,
-                image=entry.image,
+                # image=entry.image, # Haven't found a RSS feed that contains an image field
                 published=parse_datetime(entry.published),
                 link=entry.link
             )
