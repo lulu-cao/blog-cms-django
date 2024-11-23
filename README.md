@@ -8,16 +8,22 @@ This is the CMS and API for [Blog](https://github.com/lulu-cao/blog). Access the
 * `/rss-feeds/` - user RSS feeds
 * `/users/` - user id
 
-## Start the App
+## Development
 1. Install Docker VS Code extension
-2. Reopen the repo in the docker container
+2. Reopen the repo in the docker container using Dockerfile
 3. Install dependencies, apply database migrations, and start the app
     ```
     pipenv shell
     pipenv install
     pipenv run python manage.py migrate
     pipenv run python manage.py runserver
+    pipenv run python manage.py createsuperuser
     ```
+4. CMS will be running at http://localhost:8000/admin/. API can be accessed at http://localhost:8000/api/.
+
+## Tests
+1. To run a single test, use `pytest -q <file_path>`. `-q` quiets the output to make it brief. 
+2. To run all tests, use `pytest`. It will run all files named as `tests.py` or `test_*.py` or `*_tests.py` in the current directory and its subdirectories.
 
 ## Deployment
 Contact Lulu Cao for access to heroku app.
@@ -25,3 +31,13 @@ Contact Lulu Cao for access to heroku app.
 git push
 git push heroku
 ```
+
+## Useful Documentation
+### Pytest
+1. [Pytest Official Documentation](https://docs.pytest.org/en/stable/getting-started.html#get-started)
+2. [Effective Python Testing With Pytest](https://realpython.com/pytest-python-testing/)
+
+### Pytest-Django
+1. [Pytest-Django Official Documentation](https://pytest-django.readthedocs.io/en/stable/)
+2. [PyPI Documentation](https://pypi.org/project/pytest-django/)
+3. [Testing Your Django App With Pytest](https://djangostars.com/blog/django-pytest-testing/)
