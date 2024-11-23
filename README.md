@@ -22,8 +22,14 @@ This is the CMS and API for [Blog](https://github.com/lulu-cao/blog). Access the
 4. CMS will be running at http://localhost:8000/admin/. API can be accessed at http://localhost:8000/api/.
 
 ## Tests
-1. To run a single test, use `pytest -q <file_path>`. `-q` quiets the output to make it brief. 
-2. To run all tests, use `pytest`. It will run all files named as `tests.py` or `test_*.py` or `*_tests.py` in the current directory and its subdirectories.
+1. To run tests, use a command from below:
+    ```python
+    pytest                                                   # all 
+    pytest a_directory                                       # directory
+    pytest test_something.py                                 # tests file
+    pytest test_something.py::single_test                    # single test function
+    pytest -m "xfail and not slow" --strict-markers          # tests with Marks
+    ``` 
 
 ## Deployment
 Contact Lulu Cao for access to heroku app.
@@ -39,5 +45,5 @@ git push heroku
 
 ### Pytest-Django
 1. [Pytest-Django Official Documentation](https://pytest-django.readthedocs.io/en/stable/)
-2. [PyPI Documentation](https://pypi.org/project/pytest-django/)
-3. [Testing Your Django App With Pytest](https://djangostars.com/blog/django-pytest-testing/)
+2. [Testing Your Django App With Pytest](https://djangostars.com/blog/django-pytest-testing/), pay special attention to `Testing Django REST Framework with Pytest`
+3. [How to Provide Test Fixtures for Django Models in Pytest](https://realpython.com/django-pytest-fixtures/)
