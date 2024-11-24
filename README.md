@@ -9,7 +9,7 @@ This is the CMS and API for [Blog](https://github.com/lulu-cao/blog). Access the
 * `/users/` - user id
 
 ## Development
-1. Install Docker VS Code extension
+1. Install Docker and Docker VS Code extension
 2. Reopen the repo in the docker container using Dockerfile
 3. Install dependencies, apply database migrations, and start the app
     ```
@@ -22,7 +22,7 @@ This is the CMS and API for [Blog](https://github.com/lulu-cao/blog). Access the
 4. CMS will be running at http://localhost:8000/admin/. API can be accessed at http://localhost:8000/api/.
 
 ## Tests
-1. To run tests, use a command from below:
+1. To run tests in the current Docker container, use a command from below:
     ```python
     pytest                                                   # all 
     pytest a_directory                                       # directory
@@ -30,6 +30,17 @@ This is the CMS and API for [Blog](https://github.com/lulu-cao/blog). Access the
     pytest test_something.py::single_test                    # single test function
     pytest -m "xfail and not slow" --strict-markers          # tests with Marks
     ``` 
+
+2. To run tests in a separate Docker container, build a new Dcoker image with the tag `django-tests`.
+    ```
+    docker build -f Dockerfile.test -t django-tests .
+    ```
+
+    Then start a Docker container based on the previously built image. 
+    ```
+    docker run --rm django-tests
+    ```
+    `-rm` automatically removes the container after it stops.
 
 ## Deployment
 Contact Lulu Cao for access to heroku app.

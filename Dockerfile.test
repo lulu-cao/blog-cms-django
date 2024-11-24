@@ -1,0 +1,24 @@
+# Use Python as the base image
+FROM python:3.11
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1
+
+# Set working directory
+WORKDIR /code
+
+# Install Pipenv
+RUN pip install pipenv
+
+# Copy dependencies
+COPY Pipfile* /code/
+
+# Install all dependencies, including dev/test dependencies
+RUN pipenv install --dev
+
+# Copy the application code
+COPY . /code/
+
+# Default command for running tests
+CMD ["pipenv", "run", "pytest"]
+

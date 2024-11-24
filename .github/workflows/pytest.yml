@@ -1,0 +1,26 @@
+name: Run Pytest
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Docker
+      - name: Build Docker image for testing
+        run: docker build -f Dockerfile.test -t django-tests .
+
+      # Run tests
+      - name: Run Pytest in Docker
+        run: docker run --rm django-tests
