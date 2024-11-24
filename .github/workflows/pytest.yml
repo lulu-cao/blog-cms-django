@@ -19,9 +19,7 @@ jobs:
 
       # Set up Docker
       - name: Build Docker image for testing
-        run: docker build -f Dockerfile.test -t django-tests .
-        env:
-          SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+        run: docker build --build-arg SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }} -f Dockerfile.test -t django-tests .
 
       # Run tests
       - name: Run Pytest in Docker
