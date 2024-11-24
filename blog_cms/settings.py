@@ -25,6 +25,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+load_dotenv()
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -103,7 +104,7 @@ DATABASES['default'].update(dj_database_url.config(
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-ALLOWED_HOSTS = ['blog-cms-django-abaff6e17c2a.herokuapp.com', 'localhost', ]
+ALLOWED_HOSTS = ['blog-cms-django-abaff6e17c2a.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Django Import Export
@@ -167,7 +168,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # S3 Direct
-load_dotenv()
 DEFAULT_FILE_STORAGE = 'django_s3_storage.storage.S3Storage'
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
